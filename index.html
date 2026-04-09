@@ -129,10 +129,93 @@
     height: 200px;
   }
 }
+
+    .chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 260px;
+  background: #1e293b;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  padding: 10px;
+  font-size: 14px;
+}
+
+.chat-header {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #38bdf8;
+}
+
+.chat-box {
+  height: 150px;
+  overflow-y: auto;
+  background: #0f172a;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.chat-box p {
+  margin: 5px 0;
+}
+
+.chatbot input {
+  width: 70%;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.chatbot button {
+  width: 28%;
+  padding: 5px;
+  border: none;
+  background: #38bdf8;
+  border-radius: 5px;
+  cursor: pointer;
+}
     
   </style>
 </head>
+<!-- CHATBOT -->
+<div class="chatbot">
+  <div class="chat-header">Chat with me 🤖</div>
+  <div class="chat-box" id="chatBox"></div>
+  <input type="text" id="userInput" placeholder="Type a message..." />
+  <button onclick="sendMessage()">Send</button>
+</div>
 
+  <script>
+function sendMessage() {
+  let input = document.getElementById("userInput");
+  let chatBox = document.getElementById("chatBox");
+
+  let userText = input.value;
+  if (userText === "") return;
+
+  chatBox.innerHTML += "<p><b>You:</b> " + userText + "</p>";
+
+  let botReply = getBotResponse(userText);
+  chatBox.innerHTML += "<p><b>Bot:</b> " + botReply + "</p>";
+
+  input.value = "";
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function getBotResponse(input) {
+  input = input.toLowerCase();
+
+  if (input.includes("hello")) return "Hi! 👋 Welcome to my portfolio!";
+  if (input.includes("name")) return "I'm Romel's chatbot 🤖";
+  if (input.includes("project")) return "Check my projects above 👆";
+  if (input.includes("contact")) return "Scroll down to contact me 📩";
+  if (input.includes("resume")) return "Click the resume button above 📄";
+
+  return "Sorry, I don't understand that yet 😅";
+}
+  </script>
 <body>
 
 <div class="container">
