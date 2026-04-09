@@ -129,19 +129,39 @@
     height: 200px;
   }
 }
-
-    .chat-container {
+/* Chat Widget */
+#chat-widget {
   position: fixed;
   bottom: 20px;
   right: 20px;
   width: 300px;
-  background: #1e1e1e;
-  padding: 10px;
-  border-radius: 10px;
-  color: white;
   font-family: Arial, sans-serif;
+  z-index: 9999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+/* Chat Header */
+#chat-header {
+  background: #4caf50;
+  color: white;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Chat Body */
+#chat-body {
+  background: #1e1e1e;
+  color: white;
+  border-radius: 0 0 10px 10px;
+  display: none;
+  flex-direction: column;
+  padding: 10px;
+}
+
+/* Chat Box */
 #chat-box {
   height: 200px;
   overflow-y: auto;
@@ -152,14 +172,15 @@
   background: #2c2c2c;
 }
 
-input {
+/* Input & Button */
+#user-input {
   width: 70%;
   padding: 5px;
   border-radius: 5px;
   border: none;
 }
 
-button {
+#chat-body button {
   width: 25%;
   padding: 5px;
   border-radius: 5px;
@@ -169,20 +190,28 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+#chat-body button:hover {
   background: #45a049;
 }
-    
   </style>
 </head>
-<!-- CHATBOT -->
-<div class="chatbot">
-  <div class="chat-header">Chat with me 🤖</div>
-  <div class="chat-box" id="chatBox"></div>
-  <input type="text" id="userInput" placeholder="Ask Me Anything.." />
-  <button onclick="sendMessage()">Send</button>
+<!-- Floating Chatbot -->
+<div id="chat-widget">
+  <div id="chat-header" onclick="toggleChat()">💬 Chat with me</div>
+  <div id="chat-body">
+    <div id="chat-box"></div>
+    <input type="text" id="user-input" placeholder="Ask me anything..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
 </div>
+
 <script>
+// Portfolio info answers
+function toggleChat() {
+  const body = document.getElementById("chat-body");
+  body.style.display = body.style.display === "flex" ? "none" : "flex";
+}
+
 // Portfolio info answers
 const portfolioQA = [
   { q: ["name", "who are you"], a: "I'm Tisoy Maque, a web developer and student." },
@@ -202,10 +231,8 @@ function sendMessage() {
 
   chatBox.innerHTML += `<p><b>You:</b> ${message}</p>`;
 
-  // Convert message to lowercase for matching
   const lowerMsg = message.toLowerCase();
 
-  // Find answer
   let reply = "Please check my portfolio for more details.";
   for (const item of portfolioQA) {
     for (const keyword of item.q) {
