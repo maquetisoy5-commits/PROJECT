@@ -193,9 +193,40 @@
 #chat-body button:hover {
   background: #45a049;
 }
+
+/* Typing animation dots */
+.typing {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  background-color: white;
+  border-radius: 50%;
+  animation: blink 1s infinite alternate;
+}
+
+.typing::after, .typing::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  background-color: white;
+  border-radius: 50%;
+  animation: blink 1s infinite alternate;
+}
+
+.typing::before { animation-delay: 0.2s; }
+.typing::after { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
   </style>
 </head>
-<!-- Floating Chatbot -->
+
+<!-- Floating Chatbot with Typing -->
 <div id="chat-widget">
   <div id="chat-header" onclick="toggleChat()">💬 Chat with me</div>
   <div id="chat-body">
@@ -206,7 +237,7 @@
 </div>
 
 <script>
-// Portfolio info answers
+// Toggle chat
 function toggleChat() {
   const body = document.getElementById("chat-body");
   body.style.display = body.style.display === "flex" ? "none" : "flex";
@@ -226,7 +257,6 @@ function sendMessage() {
   const input = document.getElementById("user-input");
   const message = input.value.trim();
   const chatBox = document.getElementById("chat-box");
-
   if (!message) return;
 
   chatBox.innerHTML += `<p><b>You:</b> ${message}</p>`;
@@ -243,10 +273,20 @@ function sendMessage() {
     }
   }
 
-  chatBox.innerHTML += `<p><b>Bot:</b> ${reply}</p>`;
+  // Show typing animation
+  const typingEl = document.createElement("p");
+  typingEl.innerHTML = `<b>Bot:</b> <span class="typing"></span>`;
+  chatBox.appendChild(typingEl);
   chatBox.scrollTop = chatBox.scrollHeight;
+
+  // Simulate typing delay
+  setTimeout(() => {
+    typingEl.innerHTML = `<b>Bot:</b> ${reply}`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }, 1000 + Math.random() * 1000); // 1-2 seconds delay
+
   input.value = "";
-}
+    }
 </script>
 <body>
 
