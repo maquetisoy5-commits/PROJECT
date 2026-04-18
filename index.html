@@ -708,25 +708,41 @@
     }
     typeLoader();
 
-    function hideLoader() {
-        const loader = document.getElementById("loader");
+    /* LOADER LOGIC - IMPROVED FOR GITHUB */
+function hideLoader() {
+    const loader = document.getElementById("loader");
+    if (loader && !loader.classList.contains("hide")) {
+        console.log("Hiding loader now...");
         loader.classList.add("hide");
         document.body.style.overflow = "auto";
+        // Fully remove from view after transition
+        setTimeout(() => { loader.style.display = "none"; }, 1000);
     }
-    window.addEventListener("load", () => { setTimeout(hideLoader, 4200); });
-    setTimeout(hideLoader, 7000); // Fail-safe
+}
 
-    /* 2. HERO TYPEWRITER */
-    const heroText = "ROMEL B. MAQUE";
-    let heroIndex = 0;
-    function typeHero() {
-        if (heroIndex < heroText.length) {
-            document.getElementById("typing-text").innerHTML += heroText.charAt(heroIndex);
-            heroIndex++;
-            setTimeout(typeHero, 120);
-        }
+// This types the text in the loader
+const loadText = "ROMEL PORTFOLIO";
+let loaderIndex = 0;
+function typeLoader() {
+    const target = document.getElementById("loader-text");
+    if (target && loaderIndex < loadText.length) {
+        target.innerHTML += loadText.charAt(loaderIndex);
+        loaderIndex++;
+        setTimeout(typeLoader, 100);
     }
-    setTimeout(typeHero, 4500); // Start after loader
+}
+typeLoader();
+
+// THE FIX: Don't wait for "load" (which waits for images). 
+// Use "DOMContentLoaded" + a small timer.
+document.addEventListener("DOMContentLoaded", () => {
+    // Wait 4 seconds for the animation to look good, then hide
+    setTimeout(hideLoader, 4000);
+});
+
+// EXTRA FAIL-SAFE: If it's still there after 6 seconds, force it to hide
+setTimeout(hideLoader, 6000);
+
 
     /* 3. THEME & PARTICLES */
     const themeBtn = document.getElementById("theme-toggle");
