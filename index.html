@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Romel B. Maque | Developer Portfolio</title>
+<title>Romel B. Maque | Level 2 Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 /* =========================
-GLOBAL RESET
+BASE
 ========================= */
 *{
 margin:0;
@@ -20,27 +20,11 @@ font-family:'Poppins',sans-serif;
 scroll-behavior:smooth;
 }
 
-:root{
---bg-dark:#0f172a;
---bg-light:#f8fafc;
---card-dark:#1e293b;
---card-light:#ffffff;
---text-dark:#ffffff;
---text-light:#0f172a;
---accent:#38bdf8;
-}
-
-/* =========================
-THEME
-========================= */
-body.dark{
-background:linear-gradient(135deg,#020617,#0f172a,#111827);
+body{
+background:#0f172a;
 color:white;
-}
-
-body.light{
-background:linear-gradient(135deg,#ffffff,#e2e8f0);
-color:#111827;
+overflow-x:hidden;
+transition:.4s;
 }
 
 /* =========================
@@ -48,20 +32,9 @@ PARTICLES
 ========================= */
 #particles-js{
 position:fixed;
-top:0;
-left:0;
 width:100%;
 height:100%;
 z-index:-1;
-}
-
-/* =========================
-CONTAINER
-========================= */
-.container{
-max-width:1200px;
-margin:auto;
-padding:0 20px;
 }
 
 /* =========================
@@ -71,8 +44,8 @@ header{
 position:sticky;
 top:0;
 z-index:999;
-backdrop-filter:blur(12px);
 background:rgba(2,6,23,.7);
+backdrop-filter:blur(12px);
 border-bottom:1px solid rgba(255,255,255,.05);
 }
 
@@ -80,14 +53,12 @@ border-bottom:1px solid rgba(255,255,255,.05);
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:18px 0;
-flex-wrap:wrap;
+padding:15px 20px;
 }
 
 .logo{
 font-weight:700;
-font-size:20px;
-color:var(--accent);
+color:#38bdf8;
 letter-spacing:1px;
 }
 
@@ -99,16 +70,15 @@ flex-wrap:wrap;
 
 nav a{
 text-decoration:none;
-padding:10px 16px;
-border-radius:30px;
-font-size:14px;
-transition:.3s;
-background:rgba(255,255,255,.05);
 color:white;
+padding:10px 14px;
+border-radius:20px;
+background:rgba(255,255,255,.05);
+transition:.3s;
 }
 
 nav a:hover{
-background:var(--accent);
+background:#38bdf8;
 color:black;
 }
 
@@ -118,57 +88,64 @@ HERO
 .hero{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:50px;
-align-items:center;
 min-height:90vh;
+align-items:center;
+gap:40px;
+padding:60px 20px;
 }
 
-.hero h2{
-font-size:52px;
-line-height:1.1;
+/* GLITCH TEXT */
+.glitch{
+font-size:58px;
+font-weight:800;
+position:relative;
+color:#fff;
+text-transform:uppercase;
 }
 
-#typing-text{
-color:var(--accent);
-font-weight:700;
+.glitch::before,
+.glitch::after{
+content:"ROMEL B. MAQUE";
+position:absolute;
+left:0;
+top:0;
+width:100%;
+overflow:hidden;
 }
 
-#typing-text::after{
-content:"|";
-animation:blink .8s infinite;
+.glitch::before{
+color:#38bdf8;
+z-index:-1;
+animation:glitchTop 2s infinite linear alternate-reverse;
 }
 
-@keyframes blink{
-50%{opacity:0;}
+.glitch::after{
+color:#ff004c;
+z-index:-2;
+animation:glitchBottom 2s infinite linear alternate-reverse;
 }
 
+@keyframes glitchTop{
+0%{transform:translate(2px,-2px);}
+100%{transform:translate(-2px,2px);}
+}
+
+@keyframes glitchBottom{
+0%{transform:translate(-2px,2px);}
+100%{transform:translate(2px,-2px);}
+}
+
+/* HERO TEXT */
 .hero p{
-color:#cbd5e1;
 margin:15px 0;
+color:#cbd5e1;
 }
 
-.hero img{
-width:320px;
-height:320px;
-object-fit:cover;
-border-radius:25px;
-border:4px solid var(--accent);
-box-shadow:0 0 30px rgba(56,189,248,.4);
-animation:float 4s ease-in-out infinite;
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-15px);}
-}
-
-/* =========================
-BUTTON
-========================= */
+/* BUTTON */
 .btn{
 display:inline-block;
-padding:14px 28px;
-background:var(--accent);
+padding:12px 24px;
+background:#38bdf8;
 color:black;
 border-radius:30px;
 font-weight:600;
@@ -180,20 +157,42 @@ transform:translateY(-5px);
 }
 
 /* =========================
-SECTIONS
+3D IMAGE EFFECT
 ========================= */
-section{
-padding:90px 0;
+.card-3d{
+perspective:1000px;
 }
 
-.title{
-font-size:34px;
-color:var(--accent);
-margin-bottom:25px;
+.hero img{
+width:300px;
+height:300px;
+object-fit:cover;
+border-radius:20px;
+border:3px solid #38bdf8;
+transition:.3s;
+transform-style:preserve-3d;
+}
+
+.hero img:hover{
+transform:rotateY(15deg) rotateX(10deg) scale(1.05);
+box-shadow:0 20px 40px rgba(56,189,248,.3);
 }
 
 /* =========================
-CARDS
+SECTIONS
+========================= */
+section{
+padding:80px 20px;
+}
+
+.title{
+font-size:32px;
+color:#38bdf8;
+margin-bottom:20px;
+}
+
+/* =========================
+CARDS 3D
 ========================= */
 .grid{
 display:grid;
@@ -205,16 +204,16 @@ gap:20px;
 background:rgba(255,255,255,.05);
 padding:20px;
 border-radius:16px;
-backdrop-filter:blur(10px);
-transition:.3s;
-border:1px solid rgba(255,255,255,.05);
+transition:.4s;
+transform-style:preserve-3d;
 }
 
 .card:hover{
-transform:translateY(-10px);
+transform:translateY(-10px) rotateX(5deg) rotateY(5deg);
+box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
 
-.card img, .card iframe{
+.card img{
 width:100%;
 border-radius:12px;
 margin-bottom:10px;
@@ -230,18 +229,54 @@ gap:10px;
 }
 
 .skill{
-padding:10px 16px;
+padding:8px 14px;
 background:#1e293b;
-border-radius:30px;
+border-radius:20px;
 font-size:13px;
 }
 
 /* =========================
-CONTACT
+CHATBOT
 ========================= */
-.contact a{
-color:var(--accent);
-text-decoration:none;
+#chat{
+position:fixed;
+bottom:20px;
+right:20px;
+width:300px;
+z-index:9999;
+}
+
+#chat-header{
+background:#38bdf8;
+padding:10px;
+font-weight:700;
+cursor:pointer;
+border-radius:10px 10px 0 0;
+}
+
+#chat-body{
+display:none;
+background:#1e293b;
+padding:10px;
+border-radius:0 0 10px 10px;
+}
+
+#chat-box{
+height:180px;
+overflow-y:auto;
+background:#0f172a;
+padding:10px;
+border-radius:8px;
+margin-bottom:10px;
+font-size:13px;
+}
+
+#chat input{
+width:100%;
+padding:10px;
+border:none;
+border-radius:8px;
+margin-bottom:8px;
 }
 
 /* =========================
@@ -251,89 +286,6 @@ footer{
 text-align:center;
 padding:30px;
 background:#020617;
-color:#94a3b8;
-margin-top:40px;
-}
-
-/* =========================
-CHATBOT
-========================= */
-#chat-widget{
-position:fixed;
-bottom:20px;
-right:20px;
-width:300px;
-z-index:9999;
-}
-
-#chat-header{
-background:var(--accent);
-padding:12px;
-cursor:pointer;
-border-radius:12px 12px 0 0;
-font-weight:700;
-}
-
-#chat-body{
-display:none;
-flex-direction:column;
-background:#1e293b;
-padding:10px;
-border-radius:0 0 12px 12px;
-}
-
-#chat-box{
-height:200px;
-overflow-y:auto;
-background:#0f172a;
-padding:10px;
-border-radius:10px;
-margin-bottom:10px;
-font-size:13px;
-}
-
-#user-input{
-padding:10px;
-border:none;
-border-radius:8px;
-width:100%;
-margin-bottom:8px;
-}
-
-/* =========================
-LOADER
-========================= */
-#loader{
-position:fixed;
-width:100%;
-height:100vh;
-background:#000;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-z-index:99999;
-}
-
-.loader-logo{
-color:var(--accent);
-font-size:32px;
-margin-bottom:20px;
-}
-
-.bar{
-width:0%;
-height:8px;
-background:var(--accent);
-transition:.3s;
-}
-
-.bar-box{
-width:300px;
-height:8px;
-background:#111;
-border-radius:20px;
-overflow:hidden;
 }
 
 /* =========================
@@ -345,61 +297,43 @@ grid-template-columns:1fr;
 text-align:center;
 }
 
-.hero h2{
+.glitch{
 font-size:40px;
 }
 
-.hero img{
-width:240px;
-height:240px;
-margin:auto;
-}
 }
 
 </style>
 </head>
 
-<body class="dark">
+<body>
 
 <div id="particles-js"></div>
 
-<!-- LOADER -->
-<div id="loader">
-<div class="loader-logo">LOADING</div>
-<div class="bar-box">
-<div class="bar" id="bar"></div>
-</div>
-</div>
-
-<!-- HEADER -->
 <header>
-<div class="container navbar">
-<div class="logo">ROMEL B. MAQUE</div>
-
+<div class="navbar">
+<div class="logo">RM PORTFOLIO</div>
 <nav>
 <a href="#home">Home</a>
 <a href="#about">About</a>
 <a href="#skills">Skills</a>
-<a href="#projects">Certificates</a>
-<a href="#tutorials">Tutorials</a>
+<a href="#cert">Certificates</a>
 <a href="#contact">Contact</a>
 </nav>
-
-<button id="theme-toggle">🌙</button>
 </div>
 </header>
 
 <!-- HERO -->
 <section id="home">
-<div class="container hero">
+<div class="hero">
 
 <div>
-<h2>Hello, I'm <span id="typing-text"></span></h2>
+<h1 class="glitch">ROMEL B. MAQUE</h1>
 <p>Aspiring Developer • Designer • Student</p>
-<a href="https://drive.google.com/file/d/1ttJjiZrnaQOKw4_4yrJYpiwoSJpZlP65/view?usp=drivesdk" class="btn">Download CV</a>
+<a class="btn" href="#">Download CV</a>
 </div>
 
-<div>
+<div class="card-3d">
 <img src="https://maquetisoy5-gnvsr.wordpress.com/wp-content/uploads/2025/10/file_0000000067846208ac514dd0883461997751722131553565781.png?w=200">
 </div>
 
@@ -408,17 +342,12 @@ margin:auto;
 
 <!-- ABOUT -->
 <section id="about">
-<div class="container">
 <h2 class="title">About Me</h2>
-<p>I am passionate about web development, UI design, and creating responsive websites.
-I enjoy coding using HTML, CSS, JavaScript, Java, C++, and PHP.
-My goal is to become a professional software developer..</p>
-</div>
+<p>I build modern websites with clean UI, animations, and interactive design.</p>
 </section>
 
 <!-- SKILLS -->
 <section id="skills">
-<div class="container">
 <h2 class="title">Skills</h2>
 <div class="skills">
 <div class="skill">HTML</div>
@@ -428,92 +357,48 @@ My goal is to become a professional software developer..</p>
 <div class="skill">PHP</div>
 <div class="skill">C++</div>
 </div>
-</div>
 </section>
 
 <!-- CERTIFICATES -->
-<section id="projects">
-<div class="container">
+<section id="cert">
 <h2 class="title">Certificates</h2>
 
 <div class="grid">
-
-<div class="card"><img src="https://maquetisoy5-gnvsr.wordpress.com/wp-content/uploads/2026/04/received_12669272453217607221729466555740244.jpeg?w=1024"><h3>CISCO</h3></div>
-<div class="card"><img src="https://maquetisoy5-gnvsr.wordpress.com/wp-content/uploads/2026/04/img_20260305_160737_9978056948280424168292.jpg?w=1024"><h3>Seminar</h3></div>
-<div class="card"><img src="YOUR_IMAGE"><h3>Certificate 3</h3></div>
-<div class="card"><img src="YOUR_IMAGE"><h3>Certificate 4</h3></div>
-<div class="card"><img src="YOUR_IMAGE"><h3>Certificate 5</h3></div>
-<div class="card"><img src="YOUR_IMAGE"><h3>Certificate 6</h3></div>
-<div class="card"><img src="YOUR_IMAGE"><h3>Certificate 7</h3></div>
-
-</div>
-</div>
-</section>
-
-<!-- TUTORIALS -->
-<section id="tutorials">
-<div class="container">
-<h2 class="title">Tutorials</h2>
-
-<div class="grid">
-<div class="card"><iframe src="https://www.youtube.com/embed/a9u2yZvsqHA"></iframe></div>
-<div class="card"><iframe src="https://www.youtube.com/embed/jzWxBuvwuwQ"></iframe></div>
-<div class="card"><iframe src="https://www.youtube.com/embed/jQ1sfKIl50E"></iframe></div>
+<div class="card"><img src="YOUR_IMAGE"></div>
+<div class="card"><img src="YOUR_IMAGE"></div>
+<div class="card"><img src="YOUR_IMAGE"></div>
+<div class="card"><img src="YOUR_IMAGE"></div>
+<div class="card"><img src="YOUR_IMAGE"></div>
+<div class="card"><img src="YOUR_IMAGE"></div>
+<div class="card"><img src="YOUR_IMAGE"></div>
 </div>
 
-</div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-<div class="container">
 <h2 class="title">Contact</h2>
-<p>Email: <a href="mailto:maquetisoy5@gmail.com">maquetisoy5@gmail.com</a></p>
-<p>Facebook: <a href="https://facebook.com">My Facebook</a></p>
-<p>GitHub: <a href="https://github.com/maquetisoy5-commits">My GitHub</a></p>
-</div>
+<p>Email: maquetisoy5@gmail.com</p>
+<p>Facebook: facebook.com</p>
+<p>GitHub: github.com</p>
 </section>
 
+<!-- CHATBOT -->
+<div id="chat">
+<div id="chat-header" onclick="toggleChat()">Chat</div>
+<div id="chat-body">
+<div id="chat-box"></div>
+<input id="input" placeholder="Type...">
+<button onclick="send()">Send</button>
+</div>
+</div>
+
 <footer>
-© 2026 ROMEL B. MAQUE
+© 2026 Romel B. Maque
 </footer>
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
 <script>
-
-/* TYPEWRITER */
-const text="ROMEL B. MAQUE";
-let i=0;
-function type(){
-if(i<text.length){
-document.getElementById("typing-text").innerHTML+=text.charAt(i);
-i++;
-setTimeout(type,120);
-}
-}
-type();
-
-/* THEME */
-const btn=document.getElementById("theme-toggle");
-
-btn.onclick=()=>{
-document.body.classList.toggle("light");
-document.body.classList.toggle("dark");
-btn.innerHTML=document.body.classList.contains("dark")?"🌙":"☀️";
-}
-
-/* LOADER */
-let bar=document.getElementById("bar");
-let load=0;
-
-let interval=setInterval(()=>{
-load++;
-bar.style.width=load+"%";
-if(load>=100){
-clearInterval(interval);
-document.getElementById("loader").style.display="none";
-}
-},30);
 
 /* PARTICLES */
 particlesJS("particles-js",{
@@ -524,6 +409,29 @@ size:{value:3},
 move:{speed:2}
 }
 });
+
+/* CHATBOT */
+function toggleChat(){
+let body=document.getElementById("chat-body");
+body.style.display=body.style.display==="block"?"none":"block";
+}
+
+function send(){
+let input=document.getElementById("input");
+let box=document.getElementById("chat-box");
+
+box.innerHTML += "<div>You: "+input.value+"</div>";
+
+let reply="Explore my portfolio!";
+if(input.value.toLowerCase().includes("name")) reply="I'm Romel B. Maque.";
+if(input.value.toLowerCase().includes("skills")) reply="HTML, CSS, JS, Java, PHP, C++";
+
+setTimeout(()=>{
+box.innerHTML += "<div>Bot: "+reply+"</div>";
+},500);
+
+input.value="";
+}
 
 </script>
 
