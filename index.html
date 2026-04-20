@@ -908,6 +908,15 @@ function getReply(text){
     return "Hello! 👋 Feel free to ask anything about me or my work.";
   }
 
+   if(text.includes("what is your name?") || text.includes("about")){
+    return "I'm Romel B. Maque, an aspiring developer and BSIT student passionate about web development and design.";
+  }
+
+   if(text.includes("how old are you?") ){
+    return "Romel B. Maque is currently 23 years old.";
+  }
+
+ 
   // DEFAULT
   return "I’m not sure about that. Try asking about my skills, projects, certificates, or contact info.";
 }
