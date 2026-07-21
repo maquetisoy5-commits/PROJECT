@@ -1,236 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Racing Simulation</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Event Management System</title>
+
     <style>
-        body {
+        /* CSS: Design and Styling */
+        * {
             margin: 0;
-            background: #0f0f0f;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Segoe UI', sans-serif;
-            color: white;
-            overflow: hidden;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
-        #game-container { position: relative; border: 2px solid #444; }
-
-        /* Multi-Metric Dashboard */
-        #dashboard {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #e74c3c;
-            width: 160px;
-            pointer-events: none;
+        body {
+            background: #f4f4f4;
+            padding: 20px;
         }
 
-        .stat-group { margin-bottom: 12px; }
-        .stat-label { font-size: 0.7rem; color: #e74c3c; text-transform: uppercase; letter-spacing: 1px; }
-        .stat-value { font-size: 1.2rem; font-weight: bold; }
-        
-        .bar-bg { width: 100%; height: 6px; background: #333; border-radius: 3px; margin-top: 4px; }
-        .bar-fill { height: 100%; border-radius: 3px; transition: width 0.2s; }
-
-        /* Screens */
-        .overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        input {
-            padding: 12px;
-            border-radius: 4px;
-            border: none;
-            margin: 15px 0;
-            width: 200px;
+        h1 {
             text-align: center;
-            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         button {
-            padding: 10px 30px;
-            background: #e74c3c;
+            background: #007BFF;
             color: white;
             border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: bold;
-            border-radius: 4px;
         }
 
-        canvas { background: #1e1e1e; display: block; }
+        button:hover {
+            background: #0056b3;
+        }
+
+        .event-list {
+            margin-top: 20px;
+        }
+
+        .event-card {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .event-card h3 {
+            color: #007BFF;
+        }
+
+        .delete-btn {
+            background: red;
+            margin-top: 10px;
+        }
+
+        .delete-btn:hover {
+            background: darkred;
+        }
     </style>
 </head>
 <body>
 
-    <div id="game-container">
-        <div id="start-screen" class="overlay">
-            <h2>PILOT REGISTRATION</h2>
-            <input type="text" id="playerName" placeholder="Enter Pilot Name" maxlength="10">
-            <button onclick="startGame()">START SIMULATION</button>
-        </div>
+<div class="container">
+    <h1>Event Management System</h1>
 
-        <div id="death-screen" class="overlay" style="display:none;">
-            <h1 style="color:#e74c3c">SYSTEM CRITICAL</h1>
-            <p id="result-msg"></p>
-            <button onclick="location.reload()">REBOOT SYSTEM</button>
-        </div>
-
-        <div id="dashboard">
-            <div class="stat-group">
-                <div class="stat-label">Pilot</div>
-                <div id="dash-name" class="stat-value">---</div>
-            </div>
-            <div class="stat-group">
-                <div class="stat-label">Velocity</div>
-                <div id="speed" class="stat-value">0</div>
-            </div>
-            <div class="stat-group">
-                <div class="stat-label">Fuel Level</div>
-                <div class="bar-bg"><div id="fuel-bar" class="bar-fill" style="width:100%; background:#2ecc71;"></div></div>
-            </div>
-            <div class="stat-group">
-                <div class="stat-label">Engine Temp</div>
-                <div class="bar-bg"><div id="temp-bar" class="bar-fill" style="width:10%; background:#f1c40f;"></div></div>
-            </div>
-            <div class="stat-group">
-                <div class="stat-label">Distance</div>
-                <div id="score" class="stat-value">0</div>
-            </div>
-        </div>
-
-        <canvas id="gameCanvas"></canvas>
+    <!-- Event Form -->
+    <div class="form-group">
+        <label>Event Name</label>
+        <input type="text" id="eventName" placeholder="Enter event name">
     </div>
 
+    <div class="form-group">
+        <label>Event Date</label>
+        <input type="date" id="eventDate">
+    </div>
+
+    <div class="form-group">
+        <label>Event Location</label>
+        <input type="text" id="eventLocation" placeholder="Enter location">
+    </div>
+
+    <div class="form-group">
+        <label>Event Description</label>
+        <textarea id="eventDescription" rows="3" placeholder="Enter description"></textarea>
+    </div>
+
+    <button onclick="addEvent()">Add Event</button>
+
+    <!-- Event List -->
+    <div class="event-list" id="eventList"></div>
+</div>
+
 <script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = 400;
-    canvas.height = 600;
+    // JavaScript: Functionality
 
-    let gameActive = false;
-    let playerName = "Pilot";
-    let score = 0;
-    let fuel = 100;
-    let temp = 20;
-    let keys = {};
-    let roadOffset = 0;
-    let enemies = [];
+    function addEvent() {
+        // Get values from input fields
+        const name = document.getElementById("eventName").value;
+        const date = document.getElementById("eventDate").value;
+        const location = document.getElementById("eventLocation").value;
+        const description = document.getElementById("eventDescription").value;
 
-    const player = { x: 175, y: 480, w: 50, h: 90, speed: 0, maxSpeed: 15, accel: 0.1 };
-
-    window.addEventListener('keydown', e => keys[e.code] = true);
-    window.addEventListener('keyup', e => keys[e.code] = false);
-
-    function startGame() {
-        const input = document.getElementById('playerName').value;
-        if(input) playerName = input.toUpperCase();
-        document.getElementById('dash-name').innerText = playerName;
-        document.getElementById('start-screen').style.display = 'none';
-        gameActive = true;
-        spawnEnemy();
-        update();
-    }
-
-    function spawnEnemy() {
-        if (!gameActive) return;
-        enemies.push({
-            x: Math.random() * (canvas.width - 50),
-            y: -100,
-            w: 45, h: 80,
-            speed: 2 + Math.random() * 5,
-            color: `hsl(${Math.random() * 360}, 70%, 50%)`
-        });
-        setTimeout(spawnEnemy, 1200);
-    }
-
-    function update() {
-        if (!gameActive) return;
-
-        // Physics & Dashboard Logic
-        if (keys['ArrowUp']) {
-            player.speed = Math.min(player.speed + player.accel, player.maxSpeed);
-            fuel -= 0.05;
-            temp = Math.min(temp + 0.05, 100);
-        } else {
-            player.speed = Math.max(player.speed - 0.05, 0);
-            temp = Math.max(temp - 0.02, 20);
+        // Check if all fields are filled
+        if (name === "" || date === "" || location === "" || description === "") {
+            alert("Please fill in all fields.");
+            return;
         }
 
-        if (keys['ArrowLeft'] && player.x > 0) player.x -= 5;
-        if (keys['ArrowRight'] && player.x < canvas.width - player.w) player.x += 5;
+        // Create a new event card
+        const eventCard = document.createElement("div");
+        eventCard.classList.add("event-card");
 
-        roadOffset += player.speed;
-        score += Math.floor(player.speed / 2);
+        eventCard.innerHTML = `
+            <h3>${name}</h3>
+            <p><strong>Date:</strong> ${date}</p>
+            <p><strong>Location:</strong> ${location}</p>
+            <p><strong>Description:</strong> ${description}</p>
+            <button class="delete-btn" onclick="deleteEvent(this)">Delete</button>
+        `;
 
-        // Update UI Bars
-        document.getElementById('speed').innerText = Math.floor(player.speed * 20) + " KM/H";
-        document.getElementById('score').innerText = score + "m";
-        document.getElementById('fuel-bar').style.width = fuel + "%";
-        document.getElementById('temp-bar').style.width = temp + "%";
+        // Add the event card to the event list
+        document.getElementById("eventList").appendChild(eventCard);
 
-        if(fuel <= 0) gameOver("OUT OF FUEL");
-
-        enemies.forEach((enemy, index) => {
-            enemy.y += enemy.speed + (player.speed * 0.4);
-            if (player.x < enemy.x + enemy.w && player.x + player.w > enemy.x &&
-                player.y < enemy.y + enemy.h && player.y + player.h > enemy.y) {
-                gameOver("COLLISION DETECTED");
-            }
-            if (enemy.y > canvas.height) enemies.splice(index, 1);
-        });
-
-        draw();
-        requestAnimationFrame(update);
+        // Clear the form
+        document.getElementById("eventName").value = "";
+        document.getElementById("eventDate").value = "";
+        document.getElementById("eventLocation").value = "";
+        document.getElementById("eventDescription").value = "";
     }
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Road Lines
-        ctx.setLineDash([30, 30]);
-        ctx.lineDashOffset = -roadOffset;
-        ctx.strokeStyle = "rgba(255,255,255,0.2)";
-        ctx.beginPath();
-        ctx.moveTo(canvas.width/2, 0); ctx.lineTo(canvas.width/2, canvas.height);
-        ctx.stroke();
-
-        // Player Car
-        ctx.fillStyle = "#e74c3c";
-        ctx.fillRect(player.x, player.y, player.w, player.h);
-        
-        // Name on Car
-        ctx.fillStyle = "white";
-        ctx.font = "bold 10px Arial";
-        ctx.textAlign = "center";
-        ctx.fillText(playerName, player.x + player.w/2, player.y + 50);
-
-        // Enemies
-        enemies.forEach(e => {
-            ctx.fillStyle = e.color;
-            ctx.fillRect(e.x, e.y, e.w, e.h);
-        });
-    }
-
-    function gameOver(reason) {
-        gameActive = false;
-        document.getElementById('death-screen').style.display = 'flex';
-        document.getElementById('result-msg').innerText = `${reason} | Score: ${score}`;
+    function deleteEvent(button) {
+        // Remove the event card
+        button.parentElement.remove();
     }
 </script>
+
 </body>
 </html>
