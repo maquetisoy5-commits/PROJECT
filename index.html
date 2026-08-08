@@ -1,169 +1,2451 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Event Management System</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School E-Voting System</title>
 
-    <style>
-      
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-        body {
-            background: #f4f4f4;
-            padding: 20px;
-        }
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f1f5f9;
+    color:#1e293b;
+}
 
-        .container {
-            max-width: 700px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+header{
+    background:#0f172a;
+    color:white;
+    padding:15px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
+.logo{
+    font-size:21px;
+    font-weight:bold;
+}
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+.logo span{
+    color:#3b82f6;
+}
 
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
+nav button{
+    background:transparent;
+    color:white;
+    border:0;
+    padding:9px 12px;
+    cursor:pointer;
+    border-radius:6px;
+}
 
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+nav button:hover{
+    background:#1e293b;
+}
 
-        button {
-            background: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.container{
+    width:92%;
+    max-width:1200px;
+    margin:30px auto;
+}
 
-        button:hover {
-            background: #0056b3;
-        }
+.login-container{
+    min-height:calc(100vh - 70px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
 
-        .event-list {
-            margin-top: 20px;
-        }
+.login-box{
+    width:420px;
+    max-width:100%;
+    background:white;
+    padding:35px;
+    border-radius:16px;
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+}
 
-        .event-card {
-            background: #fafafa;
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
+.login-box h1{
+    text-align:center;
+    margin-bottom:8px;
+}
 
-        .event-card h3 {
-            color: #007BFF;
-        }
+.login-box>p{
+    text-align:center;
+    color:#64748b;
+    margin-bottom:25px;
+}
 
-        .delete-btn {
-            background: red;
-            margin-top: 10px;
-        }
+.input-group{
+    margin-bottom:15px;
+}
 
-        .delete-btn:hover {
-            background: darkred;
-        }
-    </style>
+.input-group label{
+    display:block;
+    font-weight:bold;
+    font-size:14px;
+    margin-bottom:7px;
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:8px;
+    outline:none;
+    font-size:15px;
+}
+
+.input-group input:focus,
+.input-group select:focus{
+    border-color:#2563eb;
+}
+
+.btn{
+    border:0;
+    padding:10px 15px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:bold;
+    margin:3px;
+}
+
+.btn-primary{
+    background:#2563eb;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#1d4ed8;
+}
+
+.btn-success{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-warning{
+    background:#f59e0b;
+    color:white;
+}
+
+.btn-secondary{
+    background:#64748b;
+    color:white;
+}
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#0f172a);
+    color:white;
+    padding:38px;
+    border-radius:16px;
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:#dbeafe;
+    line-height:1.6;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.card h2{
+    margin-bottom:18px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:white;
+    padding:22px;
+    border-radius:13px;
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.stat h2{
+    color:#2563eb;
+    font-size:31px;
+}
+
+.stat p{
+    color:#64748b;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.table-container{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:750px;
+}
+
+th,td{
+    padding:12px;
+    border-bottom:1px solid #e2e8f0;
+    text-align:left;
+}
+
+th{
+    background:#f8fafc;
+}
+
+.status-voted{
+    color:#16a34a;
+    font-weight:bold;
+}
+
+.status-not-voted{
+    color:#dc2626;
+    font-weight:bold;
+}
+
+.position-box{
+    border:1px solid #e2e8f0;
+    padding:18px;
+    border-radius:12px;
+    margin-bottom:18px;
+}
+
+.position-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.candidate-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:12px;
+}
+
+.candidate-admin{
+    border:1px solid #e2e8f0;
+    padding:15px;
+    border-radius:10px;
+}
+
+.candidate{
+    border:2px solid #e2e8f0;
+    padding:18px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.candidate:hover{
+    border-color:#2563eb;
+    background:#f8fbff;
+}
+
+.candidate:has(input:checked){
+    border-color:#2563eb;
+    background:#eff6ff;
+}
+
+.candidate input{
+    margin-right:7px;
+}
+
+.avatar{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:#dbeafe;
+    color:#2563eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:18px;
+    margin-bottom:10px;
+}
+
+.party{
+    color:#64748b;
+    font-size:14px;
+    margin-top:6px;
+}
+
+.notice{
+    padding:14px;
+    border-radius:9px;
+    background:#eff6ff;
+    border:1px solid #bfdbfe;
+    color:#1e40af;
+    margin-bottom:20px;
+    line-height:1.5;
+}
+
+.success{
+    text-align:center;
+    padding:60px 20px;
+}
+
+.success-icon{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+.result{
+    margin-bottom:20px;
+}
+
+.result-header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:7px;
+}
+
+.progress{
+    width:100%;
+    height:10px;
+    background:#e2e8f0;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    background:#2563eb;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.65);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    z-index:200;
+}
+
+.modal-box{
+    width:500px;
+    max-width:100%;
+    max-height:90vh;
+    overflow-y:auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.close{
+    width:32px;
+    height:32px;
+    border:0;
+    border-radius:50%;
+    background:#e2e8f0;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+.empty{
+    padding:20px;
+    text-align:center;
+    color:#64748b;
+}
+
+@media(max-width:750px){
+
+    header{
+        padding:12px;
+    }
+
+    .logo{
+        font-size:16px;
+    }
+
+    nav button{
+        font-size:11px;
+        padding:6px;
+    }
+
+    .hero{
+        padding:25px;
+    }
+
+    .hero h1{
+        font-size:27px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .position-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
-    <h1>Event Management System</h1>
+<header>
 
-    
-    <div class="form-group">
-        <label>Event Name</label>
-        <input type="text" id="eventName" placeholder="Enter event name">
+    <div class="logo">
+        🗳️ <span>E-VOTE</span> SCHOOL
     </div>
 
-    <div class="form-group">
-        <label>Event Date</label>
-        <input type="date" id="eventDate">
+    <nav id="navigation"></nav>
+
+</header>
+
+<main id="app"></main>
+
+
+<!-- EDIT STUDENT MODAL -->
+
+<div id="studentModal" class="modal hidden">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <h2>✏️ Edit Student</h2>
+
+            <button class="close"
+                    onclick="closeStudentModal()">
+                ×
+            </button>
+        </div>
+
+        <div class="input-group">
+            <label>Student ID</label>
+            <input id="editStudentId" readonly>
+        </div>
+
+        <div class="input-group">
+            <label>Student Name</label>
+            <input id="editStudentName">
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input id="editStudentPassword">
+        </div>
+
+        <button class="btn btn-primary"
+                onclick="saveStudentEdit()">
+            Save Changes
+        </button>
+
     </div>
-
-    <div class="form-group">
-        <label>Event Location</label>
-        <input type="text" id="eventLocation" placeholder="Enter location">
-    </div>
-
-    <div class="form-group">
-        <label>Event Description</label>
-        <textarea id="eventDescription" rows="3" placeholder="Enter description"></textarea>
-    </div>
-
-    <button onclick="addEvent()">Add Event</button>
-
-    
-    <div class="event-list" id="eventList"></div>
 </div>
 
+
+<!-- EDIT POSITION MODAL -->
+
+<div id="positionModal" class="modal hidden">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2>✏️ Edit Position</h2>
+
+            <button class="close"
+                    onclick="closePositionModal()">
+                ×
+            </button>
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Position Name</label>
+
+            <input id="editPositionName">
+
+        </div>
+
+        <button class="btn btn-primary"
+                onclick="savePositionEdit()">
+            Save Position
+        </button>
+
+    </div>
+</div>
+
+
+<!-- EDIT CANDIDATE MODAL -->
+
+<div id="candidateModal" class="modal hidden">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2>✏️ Edit Candidate</h2>
+
+            <button class="close"
+                    onclick="closeCandidateModal()">
+                ×
+            </button>
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Candidate Name</label>
+
+            <input id="editCandidateName">
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Party / Organization</label>
+
+            <input id="editCandidateParty">
+
+        </div>
+
+        <button class="btn btn-primary"
+                onclick="saveCandidateEdit()">
+            Save Candidate
+        </button>
+
+    </div>
+</div>
+
+
 <script>
-    
 
-    function addEvent() {
-       
-        const name = document.getElementById("eventName").value;
-        const date = document.getElementById("eventDate").value;
-        const location = document.getElementById("eventLocation").value;
-        const description = document.getElementById("eventDescription").value;
+/* =====================================================
+   DEFAULT ELECTION
+===================================================== */
 
-        
-        if (name === "" || date === "" || location === "" || description === "") {
-            alert("Please fill in all fields.");
+const defaultElection = {
+
+    title:"Student Council Election 2026",
+
+    school:"Sample Senior High School",
+
+    positions:[
+
+        {
+            id:"pos1",
+            name:"President",
+            candidates:[
+                {
+                    id:"c1",
+                    name:"Alex Santos",
+                    party:"Student Unity",
+                    initials:"AS"
+                },
+                {
+                    id:"c2",
+                    name:"Jamie Cruz",
+                    party:"Student Voice",
+                    initials:"JC"
+                }
+            ]
+        },
+
+        {
+            id:"pos2",
+            name:"Vice President",
+            candidates:[
+                {
+                    id:"c3",
+                    name:"Morgan Lee",
+                    party:"Student Unity",
+                    initials:"ML"
+                },
+                {
+                    id:"c4",
+                    name:"Chris Dela Cruz",
+                    party:"Student Voice",
+                    initials:"CD"
+                }
+            ]
+        },
+
+        {
+            id:"pos3",
+            name:"Secretary",
+            candidates:[
+                {
+                    id:"c5",
+                    name:"Pat Garcia",
+                    party:"Progress",
+                    initials:"PG"
+                },
+                {
+                    id:"c6",
+                    name:"Sam Flores",
+                    party:"Student Unity",
+                    initials:"SF"
+                }
+            ]
+        },
+
+        {
+            id:"pos4",
+            name:"Treasurer",
+            candidates:[
+                {
+                    id:"c7",
+                    name:"Jordan Lim",
+                    party:"Student Voice",
+                    initials:"JL"
+                },
+                {
+                    id:"c8",
+                    name:"Casey Ramos",
+                    party:"Progress",
+                    initials:"CR"
+                }
+            ]
+        }
+
+    ]
+};
+
+
+/* =====================================================
+   USERS
+===================================================== */
+
+const defaultUsers = [
+
+    {
+        id:"2026-001",
+        name:"Demo Student",
+        password:"student123",
+        role:"student"
+    },
+
+    {
+        id:"2026-002",
+        name:"Maria Lopez",
+        password:"student123",
+        role:"student"
+    },
+
+    {
+        id:"admin",
+        name:"Election Administrator",
+        password:"admin123",
+        role:"admin"
+    }
+
+];
+
+
+function getUsers(){
+
+    const data =
+        localStorage.getItem("schoolUsers");
+
+    if(!data){
+
+        localStorage.setItem(
+            "schoolUsers",
+            JSON.stringify(defaultUsers)
+        );
+
+        return [...defaultUsers];
+    }
+
+    return JSON.parse(data);
+}
+
+
+function saveUsers(users){
+
+    localStorage.setItem(
+        "schoolUsers",
+        JSON.stringify(users)
+    );
+}
+
+
+/* =====================================================
+   ELECTION STORAGE
+===================================================== */
+
+function getElection(){
+
+    const data =
+        localStorage.getItem("schoolElection");
+
+    if(!data){
+
+        localStorage.setItem(
+            "schoolElection",
+            JSON.stringify(defaultElection)
+        );
+
+        return JSON.parse(
+            JSON.stringify(defaultElection)
+        );
+    }
+
+    return JSON.parse(data);
+}
+
+
+function saveElection(election){
+
+    localStorage.setItem(
+        "schoolElection",
+        JSON.stringify(election)
+    );
+}
+
+
+/* =====================================================
+   VOTES
+===================================================== */
+
+function getVotes(){
+
+    const data =
+        localStorage.getItem("schoolVotes");
+
+    return data ? JSON.parse(data) : {};
+}
+
+
+function saveVotes(votes){
+
+    localStorage.setItem(
+        "schoolVotes",
+        JSON.stringify(votes)
+    );
+}
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+function currentUser(){
+
+    const data =
+        sessionStorage.getItem("currentUser");
+
+    return data ? JSON.parse(data) : null;
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function showLogin(){
+
+    document.getElementById("navigation").innerHTML="";
+
+    document.getElementById("app").innerHTML=`
+
+        <div class="login-container">
+
+            <div class="login-box">
+
+                <h1>🗳️ E-Voting System</h1>
+
+                <p>Student Council Election</p>
+
+                <div class="input-group">
+
+                    <label>
+                        Student ID / Username
+                    </label>
+
+                    <input
+                        id="username"
+                        placeholder="Enter ID">
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Password</label>
+
+                    <input
+                        id="password"
+                        type="password"
+                        placeholder="Enter password">
+
+                </div>
+
+                <button
+                    class="btn btn-primary"
+                    style="width:100%"
+                    onclick="login()">
+
+                    🔐 Login
+
+                </button>
+
+                <p style="font-size:12px;margin-top:20px">
+
+                    <b>Demo Student</b><br>
+                    2026-001 / student123
+
+                    <br><br>
+
+                    <b>Admin</b><br>
+                    admin / admin123
+
+                </p>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function login(){
+
+    const id =
+        document.getElementById("username")
+        .value.trim();
+
+    const password =
+        document.getElementById("password")
+        .value;
+
+    if(!id || !password){
+
+        alert("Please enter your ID and password.");
+
+        return;
+    }
+
+    const user =
+        getUsers().find(
+            u =>
+            u.id===id &&
+            u.password===password
+        );
+
+    if(!user){
+
+        alert("❌ Invalid ID or password.");
+
+        return;
+    }
+
+    sessionStorage.setItem(
+        "currentUser",
+        JSON.stringify(user)
+    );
+
+    if(user.role==="admin"){
+
+        adminDashboard();
+
+    }else{
+
+        votingPage();
+
+    }
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function updateNavigation(){
+
+    const user=currentUser();
+
+    if(!user){
+
+        document.getElementById(
+            "navigation"
+        ).innerHTML="";
+
+        return;
+    }
+
+    document.getElementById(
+        "navigation"
+    ).innerHTML=`
+
+        <button onclick="${
+            user.role==="admin"
+            ? "adminDashboard()"
+            : "votingPage()"
+        }">
+            ${
+                user.role==="admin"
+                ? "Dashboard"
+                : "Vote"
+            }
+        </button>
+
+        <button onclick="showResults()">
+            Results
+        </button>
+
+        <button onclick="logout()">
+            Logout
+        </button>
+    `;
+}
+
+
+function logout(){
+
+    sessionStorage.removeItem("currentUser");
+
+    showLogin();
+}
+
+
+/* =====================================================
+   ADMIN DASHBOARD
+===================================================== */
+
+function adminDashboard(){
+
+    const user=currentUser();
+
+    if(!user || user.role!=="admin"){
+
+        showLogin();
+
+        return;
+    }
+
+    updateNavigation();
+
+    const users =
+        getUsers().filter(
+            u=>u.role==="student"
+        );
+
+    const election =
+        getElection();
+
+    const votes =
+        getVotes();
+
+    const totalVotes =
+        Object.keys(votes).length;
+
+    const participation =
+        users.length
+        ? Math.round(
+            totalVotes/users.length*100
+        )
+        : 0;
+
+    document.getElementById("app").innerHTML=`
+
+        <div class="container">
+
+            <div class="hero">
+
+                <h1>Admin Dashboard</h1>
+
+                <p>
+                    Manage students, positions,
+                    candidates and election results.
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+                    <h2>${users.length}</h2>
+                    <p>Registered Students</p>
+                </div>
+
+                <div class="stat">
+                    <h2>${totalVotes}</h2>
+                    <p>Votes Submitted</p>
+                </div>
+
+                <div class="stat">
+                    <h2>${participation}%</h2>
+                    <p>Participation</p>
+                </div>
+
+                <div class="stat">
+                    <h2>${election.positions.length}</h2>
+                    <p>Election Positions</p>
+                </div>
+
+            </div>
+
+
+            <!-- STUDENT MANAGEMENT -->
+
+            <div class="card">
+
+                <h2>👨‍🎓 Student Management</h2>
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>Student ID</label>
+                        <input id="newStudentId"
+                               placeholder="2026-003">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Student Name</label>
+                        <input id="newStudentName"
+                               placeholder="Juan Dela Cruz">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input id="newStudentPassword"
+                               placeholder="Password">
+                    </div>
+
+                </div>
+
+                <button
+                    class="btn btn-success"
+                    onclick="addStudent()">
+
+                    ➕ Add Student
+
+                </button>
+
+                <div class="table-container"
+                     style="margin-top:20px">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        ${
+                            users.map(student=>`
+
+                                <tr>
+
+                                    <td>
+                                        ${escapeHTML(student.id)}
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(student.name)}
+                                    </td>
+
+                                    <td>
+                                        ${
+                                            votes[student.id]
+                                            ?
+                                            '<span class="status-voted">✅ Voted</span>'
+                                            :
+                                            '<span class="status-not-voted">❌ Not Voted</span>'
+                                        }
+                                    </td>
+
+                                    <td>
+
+                                        <button
+                                            class="btn btn-warning"
+                                            onclick="editStudent('${escapeJS(student.id)}')">
+                                            ✏️ Edit
+                                        </button>
+
+                                        <button
+                                            class="btn btn-danger"
+                                            onclick="deleteStudent('${escapeJS(student.id)}')">
+                                            🗑️ Delete
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+                            `).join("")
+                        }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- POSITION MANAGEMENT -->
+
+            <div class="card">
+
+                <h2>🏛️ Position & Candidate Management</h2>
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+
+                        <label>
+                            New Position
+                        </label>
+
+                        <input
+                            id="newPositionName"
+                            placeholder="e.g. Auditor">
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="btn btn-success"
+                    onclick="addPosition()">
+
+                    ➕ Add Position
+
+                </button>
+
+                <hr style="margin:25px 0">
+
+
+                ${
+                    election.positions.map(
+                        position=>`
+
+                        <div class="position-box">
+
+                            <div class="position-header">
+
+                                <h3>
+                                    🏛️
+                                    ${escapeHTML(position.name)}
+                                </h3>
+
+                                <div>
+
+                                    <button
+                                        class="btn btn-warning"
+                                        onclick="editPosition('${position.id}')">
+                                        ✏️ Edit Position
+                                    </button>
+
+                                    <button
+                                        class="btn btn-danger"
+                                        onclick="deletePosition('${position.id}')">
+                                        🗑️ Delete Position
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ADD CANDIDATE -->
+
+                            <div
+                                style="
+                                background:#f8fafc;
+                                padding:15px;
+                                border-radius:10px;
+                                margin-bottom:15px;
+                                ">
+
+                                <strong>
+                                    ➕ Add Candidate
+                                </strong>
+
+                                <div class="form-grid"
+                                     style="margin-top:12px">
+
+                                    <div class="input-group">
+
+                                        <label>
+                                            Candidate Name
+                                        </label>
+
+                                        <input
+                                            id="candidateName-${position.id}"
+                                            placeholder="Candidate name">
+
+                                    </div>
+
+                                    <div class="input-group">
+
+                                        <label>
+                                            Party / Organization
+                                        </label>
+
+                                        <input
+                                            id="candidateParty-${position.id}"
+                                            placeholder="Party">
+
+                                    </div>
+
+                                </div>
+
+                                <button
+                                    class="btn btn-success"
+                                    onclick="addCandidate('${position.id}')">
+
+                                    ➕ Add Candidate
+
+                                </button>
+
+                            </div>
+
+
+                            <!-- CANDIDATES -->
+
+                            <div class="candidate-list">
+
+                                ${
+                                    position.candidates.length
+                                    ?
+                                    position.candidates.map(
+                                        candidate=>`
+
+                                        <div class="candidate-admin">
+
+                                            <strong>
+                                                ${escapeHTML(candidate.name)}
+                                            </strong>
+
+                                            <p class="party">
+                                                ${escapeHTML(candidate.party)}
+                                            </p>
+
+                                            <button
+                                                class="btn btn-warning"
+                                                onclick="editCandidate('${position.id}','${candidate.id}')">
+
+                                                ✏️ Edit
+
+                                            </button>
+
+                                            <button
+                                                class="btn btn-danger"
+                                                onclick="deleteCandidate('${position.id}','${candidate.id}')">
+
+                                                🗑️ Delete
+
+                                            </button>
+
+                                        </div>
+
+                                    `).join("")
+                                    :
+                                    `<div class="empty">
+                                        No candidates added yet.
+                                    </div>`
+                                }
+
+                            </div>
+
+                        </div>
+
+                    `
+                    ).join("")
+                }
+
+            </div>
+
+
+            <!-- ELECTION CONTROLS -->
+
+            <div class="card">
+
+                <h2>⚙️ Election Controls</h2>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="showResults()">
+
+                    📊 View Results
+
+                </button>
+
+                <button
+                    class="btn btn-danger"
+                    onclick="resetVotes()">
+
+                    🔄 Reset All Votes
+
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =====================================================
+   STUDENTS
+===================================================== */
+
+function addStudent(){
+
+    const id =
+        document.getElementById(
+            "newStudentId"
+        ).value.trim();
+
+    const name =
+        document.getElementById(
+            "newStudentName"
+        ).value.trim();
+
+    const password =
+        document.getElementById(
+            "newStudentPassword"
+        ).value.trim();
+
+    if(!id || !name || !password){
+
+        alert("Please complete all student fields.");
+
+        return;
+    }
+
+    const users=getUsers();
+
+    if(users.some(u=>u.id===id)){
+
+        alert("Student ID already exists.");
+
+        return;
+    }
+
+    users.push({
+
+        id,
+        name,
+        password,
+        role:"student"
+
+    });
+
+    saveUsers(users);
+
+    alert("✅ Student added successfully.");
+
+    adminDashboard();
+}
+
+
+function editStudent(id){
+
+    const student =
+        getUsers().find(
+            u=>u.id===id
+        );
+
+    if(!student)return;
+
+    document.getElementById(
+        "editStudentId"
+    ).value=student.id;
+
+    document.getElementById(
+        "editStudentName"
+    ).value=student.name;
+
+    document.getElementById(
+        "editStudentPassword"
+    ).value=student.password;
+
+    document.getElementById(
+        "studentModal"
+    ).classList.remove("hidden");
+}
+
+
+function saveStudentEdit(){
+
+    const id =
+        document.getElementById(
+            "editStudentId"
+        ).value;
+
+    const name =
+        document.getElementById(
+            "editStudentName"
+        ).value.trim();
+
+    const password =
+        document.getElementById(
+            "editStudentPassword"
+        ).value.trim();
+
+    if(!name || !password){
+
+        alert("Complete all fields.");
+
+        return;
+    }
+
+    const users=getUsers();
+
+    const index =
+        users.findIndex(
+            u=>u.id===id
+        );
+
+    if(index===-1)return;
+
+    users[index].name=name;
+    users[index].password=password;
+
+    saveUsers(users);
+
+    closeStudentModal();
+
+    alert("✅ Student updated.");
+
+    adminDashboard();
+}
+
+
+function closeStudentModal(){
+
+    document.getElementById(
+        "studentModal"
+    ).classList.add("hidden");
+}
+
+
+function deleteStudent(id){
+
+    const users=getUsers();
+
+    const student =
+        users.find(
+            u=>u.id===id
+        );
+
+    if(!student)return;
+
+    if(!confirm(
+        `Delete ${student.name}?\n\nThis will also remove their vote.`
+    ))return;
+
+    saveUsers(
+        users.filter(
+            u=>u.id!==id
+        )
+    );
+
+    const votes=getVotes();
+
+    delete votes[id];
+
+    saveVotes(votes);
+
+    alert("✅ Student deleted.");
+
+    adminDashboard();
+}
+
+
+/* =====================================================
+   POSITIONS
+===================================================== */
+
+function addPosition(){
+
+    const name =
+        document.getElementById(
+            "newPositionName"
+        ).value.trim();
+
+    if(!name){
+
+        alert("Enter a position name.");
+
+        return;
+    }
+
+    const election=getElection();
+
+    if(
+        election.positions.some(
+            p =>
+            p.name.toLowerCase()
+            ===name.toLowerCase()
+        )
+    ){
+
+        alert("That position already exists.");
+
+        return;
+    }
+
+    election.positions.push({
+
+        id:"pos_"+Date.now(),
+
+        name:name,
+
+        candidates:[]
+
+    });
+
+    saveElection(election);
+
+    alert("✅ Position added.");
+
+    adminDashboard();
+}
+
+
+let editingPositionId=null;
+
+
+function editPosition(id){
+
+    const election=getElection();
+
+    const position =
+        election.positions.find(
+            p=>p.id===id
+        );
+
+    if(!position)return;
+
+    editingPositionId=id;
+
+    document.getElementById(
+        "editPositionName"
+    ).value=position.name;
+
+    document.getElementById(
+        "positionModal"
+    ).classList.remove("hidden");
+}
+
+
+function savePositionEdit(){
+
+    const name =
+        document.getElementById(
+            "editPositionName"
+        ).value.trim();
+
+    if(!name){
+
+        alert("Enter a position name.");
+
+        return;
+    }
+
+    const election=getElection();
+
+    const position =
+        election.positions.find(
+            p=>p.id===editingPositionId
+        );
+
+    if(!position)return;
+
+    position.name=name;
+
+    saveElection(election);
+
+    closePositionModal();
+
+    alert("✅ Position updated.");
+
+    adminDashboard();
+}
+
+
+function closePositionModal(){
+
+    document.getElementById(
+        "positionModal"
+    ).classList.add("hidden");
+
+    editingPositionId=null;
+}
+
+
+function deletePosition(id){
+
+    const election=getElection();
+
+    const position =
+        election.positions.find(
+            p=>p.id===id
+        );
+
+    if(!position)return;
+
+    if(!confirm(
+        `Delete the position "${position.name}"?\n\nAll candidates under this position will also be deleted.`
+    ))return;
+
+    election.positions =
+        election.positions.filter(
+            p=>p.id!==id
+        );
+
+    saveElection(election);
+
+    alert("✅ Position deleted.");
+
+    adminDashboard();
+}
+
+
+/* =====================================================
+   CANDIDATES
+===================================================== */
+
+function addCandidate(positionId){
+
+    const name =
+        document.getElementById(
+            `candidateName-${positionId}`
+        ).value.trim();
+
+    const party =
+        document.getElementById(
+            `candidateParty-${positionId}`
+        ).value.trim();
+
+    if(!name || !party){
+
+        alert(
+            "Enter the candidate name and party."
+        );
+
+        return;
+    }
+
+    const election=getElection();
+
+    const position =
+        election.positions.find(
+            p=>p.id===positionId
+        );
+
+    if(!position)return;
+
+    if(
+        position.candidates.some(
+            c =>
+            c.name.toLowerCase()
+            ===name.toLowerCase()
+        )
+    ){
+
+        alert(
+            "That candidate already exists in this position."
+        );
+
+        return;
+    }
+
+    const initials =
+        name
+        .split(" ")
+        .map(word=>word[0])
+        .join("")
+        .substring(0,2)
+        .toUpperCase();
+
+    position.candidates.push({
+
+        id:"candidate_"+Date.now(),
+
+        name:name,
+
+        party:party,
+
+        initials:initials
+
+    });
+
+    saveElection(election);
+
+    alert("✅ Candidate added.");
+
+    adminDashboard();
+}
+
+
+let editingCandidate = {
+
+    positionId:null,
+
+    candidateId:null
+
+};
+
+
+function editCandidate(
+    positionId,
+    candidateId
+){
+
+    const election=getElection();
+
+    const position =
+        election.positions.find(
+            p=>p.id===positionId
+        );
+
+    if(!position)return;
+
+    const candidate =
+        position.candidates.find(
+            c=>c.id===candidateId
+        );
+
+    if(!candidate)return;
+
+    editingCandidate.positionId=
+        positionId;
+
+    editingCandidate.candidateId=
+        candidateId;
+
+    document.getElementById(
+        "editCandidateName"
+    ).value=candidate.name;
+
+    document.getElementById(
+        "editCandidateParty"
+    ).value=candidate.party;
+
+    document.getElementById(
+        "candidateModal"
+    ).classList.remove("hidden");
+}
+
+
+function saveCandidateEdit(){
+
+    const name =
+        document.getElementById(
+            "editCandidateName"
+        ).value.trim();
+
+    const party =
+        document.getElementById(
+            "editCandidateParty"
+        ).value.trim();
+
+    if(!name || !party){
+
+        alert("Complete all candidate fields.");
+
+        return;
+    }
+
+    const election=getElection();
+
+    const position =
+        election.positions.find(
+            p =>
+            p.id===
+            editingCandidate.positionId
+        );
+
+    if(!position)return;
+
+    const candidate =
+        position.candidates.find(
+            c =>
+            c.id===
+            editingCandidate.candidateId
+        );
+
+    if(!candidate)return;
+
+    candidate.name=name;
+
+    candidate.party=party;
+
+    candidate.initials =
+        name
+        .split(" ")
+        .map(word=>word[0])
+        .join("")
+        .substring(0,2)
+        .toUpperCase();
+
+    saveElection(election);
+
+    closeCandidateModal();
+
+    alert("✅ Candidate updated.");
+
+    adminDashboard();
+}
+
+
+function closeCandidateModal(){
+
+    document.getElementById(
+        "candidateModal"
+    ).classList.add("hidden");
+
+    editingCandidate={
+        positionId:null,
+        candidateId:null
+    };
+}
+
+
+function deleteCandidate(
+    positionId,
+    candidateId
+){
+
+    const election=getElection();
+
+    const position =
+        election.positions.find(
+            p=>p.id===positionId
+        );
+
+    if(!position)return;
+
+    const candidate =
+        position.candidates.find(
+            c=>c.id===candidateId
+        );
+
+    if(!candidate)return;
+
+    if(!confirm(
+        `Delete candidate "${candidate.name}"?`
+    ))return;
+
+    position.candidates =
+        position.candidates.filter(
+            c=>c.id!==candidateId
+        );
+
+    saveElection(election);
+
+    alert("✅ Candidate deleted.");
+
+    adminDashboard();
+}
+
+
+/* =====================================================
+   VOTING
+===================================================== */
+
+function hasVoted(){
+
+    const user=currentUser();
+
+    if(!user)return false;
+
+    return !!getVotes()[user.id];
+}
+
+
+function votingPage(){
+
+    const user=currentUser();
+
+    if(!user || user.role!=="student"){
+
+        showLogin();
+
+        return;
+    }
+
+    updateNavigation();
+
+    if(hasVoted()){
+
+        thankYouPage();
+
+        return;
+    }
+
+    const election=getElection();
+
+    let positionsHTML="";
+
+    election.positions.forEach(
+        position=>{
+
+        positionsHTML+=`
+
+            <div class="card">
+
+                <h2>
+                    ${escapeHTML(position.name)}
+                </h2>
+
+                ${
+                    position.candidates.length
+                    ?
+                    `
+                    <div class="candidate-list">
+
+                        ${
+                            position.candidates
+                            .map(
+                                candidate=>`
+
+                                <label class="candidate">
+
+                                    <div class="avatar">
+                                        ${escapeHTML(candidate.initials)}
+                                    </div>
+
+                                    <div>
+
+                                        <input
+                                            type="radio"
+                                            name="${escapeHTML(position.id)}"
+                                            value="${escapeHTML(candidate.id)}">
+
+                                        <strong>
+                                            ${escapeHTML(candidate.name)}
+                                        </strong>
+
+                                        <div class="party">
+                                            ${escapeHTML(candidate.party)}
+                                        </div>
+
+                                    </div>
+
+                                </label>
+
+                            `
+                            ).join("")
+                        }
+
+                    </div>
+                    `
+                    :
+                    `
+                    <div class="empty">
+                        No candidates are currently available for this position.
+                    </div>
+                    `
+                }
+
+            </div>
+        `;
+    });
+
+    document.getElementById("app").innerHTML=`
+
+        <div class="container">
+
+            <div class="hero">
+
+                <h1>
+                    ${escapeHTML(election.title)}
+                </h1>
+
+                <p>
+                    ${escapeHTML(election.school)}
+                </p>
+
+            </div>
+
+            <div class="notice">
+
+                🔒 <strong>Voting Instructions</strong>
+
+                <br>
+
+                Select one candidate for each position.
+
+                <br>
+
+                Review your choices carefully.
+
+                <br>
+
+                Your vote cannot be changed after submission.
+
+            </div>
+
+            <form id="votingForm">
+
+                ${positionsHTML}
+
+                <div class="card">
+
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        onclick="submitVote()">
+
+                        🗳️ Submit Vote
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    `;
+}
+
+
+/* =====================================================
+   SUBMIT VOTE
+===================================================== */
+
+function submitVote(){
+
+    const user=currentUser();
+
+    if(!user){
+
+        alert("Please login again.");
+
+        showLogin();
+
+        return;
+    }
+
+    const form=
+        document.getElementById(
+            "votingForm"
+        );
+
+    if(!form)return;
+
+    const election=getElection();
+
+    const selections={};
+
+    for(
+        const position
+        of election.positions
+    ){
+
+        if(position.candidates.length===0){
+
+            alert(
+                `There are no candidates for ${position.name}.`
+            );
+
             return;
         }
 
-        
-        const eventCard = document.createElement("div");
-        eventCard.classList.add("event-card");
+        const selected=
+            form.querySelector(
+                `input[name="${CSS.escape(position.id)}"]:checked`
+            );
 
-        eventCard.innerHTML = `
-            <h3>${name}</h3>
-            <p><strong>Date:</strong> ${date}</p>
-            <p><strong>Location:</strong> ${location}</p>
-            <p><strong>Description:</strong> ${description}</p>
-            <button class="delete-btn" onclick="deleteEvent(this)">Delete</button>
+        if(!selected){
+
+            alert(
+                `Please select a candidate for ${position.name}.`
+            );
+
+            return;
+        }
+
+        const candidate=
+            position.candidates.find(
+                c=>c.id===selected.value
+            );
+
+        if(!candidate){
+
+            alert("Invalid candidate.");
+
+            return;
+        }
+
+        selections[position.id]={
+
+            positionName:position.name,
+
+            candidateId:candidate.id,
+
+            candidateName:candidate.name,
+
+            party:candidate.party
+
+        };
+    }
+
+    const votes=getVotes();
+
+    if(votes[user.id]){
+
+        alert("You have already voted.");
+
+        thankYouPage();
+
+        return;
+    }
+
+    let confirmation=
+        "PLEASE REVIEW YOUR BALLOT\n\n";
+
+    election.positions.forEach(
+        position=>{
+
+        confirmation+=
+            position.name+
+            ": "+
+            selections[position.id].candidateName+
+            "\n";
+
+    });
+
+    confirmation+=
+        "\nAre you sure you want to submit?\n"+
+        "You cannot change your vote after submission.";
+
+    if(!confirm(confirmation))return;
+
+    votes[user.id]={
+
+        voterName:user.name,
+
+        selections:selections,
+
+        date:new Date().toISOString()
+
+    };
+
+    saveVotes(votes);
+
+    alert(
+        "✅ Your vote has been successfully submitted!"
+    );
+
+    thankYouPage();
+}
+
+
+/* =====================================================
+   THANK YOU
+===================================================== */
+
+function thankYouPage(){
+
+    updateNavigation();
+
+    document.getElementById("app").innerHTML=`
+
+        <div class="container">
+
+            <div class="card success">
+
+                <div class="success-icon">
+                    ✅
+                </div>
+
+                <h1>
+                    Vote Successfully Submitted!
+                </h1>
+
+                <p style="margin:15px 0;color:#64748b">
+
+                    Thank you for participating
+                    in the school election.
+
+                </p>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="showResults()">
+
+                    📊 View Results
+
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =====================================================
+   RESULTS
+===================================================== */
+
+function showResults(){
+
+    updateNavigation();
+
+    const election=getElection();
+
+    const votes=getVotes();
+
+    const totalVotes=
+        Object.keys(votes).length;
+
+    let html=`
+
+        <div class="container">
+
+            <div class="hero">
+
+                <h1>📊 Election Results</h1>
+
+                <p>
+                    Current election results.
+                </p>
+
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <h2>${totalVotes}</h2>
+
+                    <p>Total Votes</p>
+
+                </div>
+
+                <div class="stat">
+
+                    <h2>
+                        ${election.positions.length}
+                    </h2>
+
+                    <p>Positions</p>
+
+                </div>
+
+            </div>
+    `;
+
+    election.positions.forEach(
+        position=>{
+
+        const counts={};
+
+        position.candidates.forEach(
+            candidate=>{
+                counts[candidate.id]=0;
+            }
+        );
+
+        Object.values(votes)
+        .forEach(
+            vote=>{
+
+            if(!vote.selections)return;
+
+            const selection=
+                vote.selections[position.id];
+
+            if(
+                selection &&
+                counts[selection.candidateId]!==undefined
+            ){
+
+                counts[
+                    selection.candidateId
+                ]++;
+
+            }
+
+        });
+
+        html+=`
+
+            <div class="card">
+
+                <h2>
+                    ${escapeHTML(position.name)}
+                </h2>
+
+                ${
+                    position.candidates.length
+                    ?
+                    position.candidates.map(
+                        candidate=>{
+
+                        const count=
+                            counts[candidate.id]||0;
+
+                        const percentage=
+                            totalVotes
+                            ?
+                            Math.round(
+                                count/
+                                totalVotes*
+                                100
+                            )
+                            :
+                            0;
+
+                        return `
+
+                            <div class="result">
+
+                                <div class="result-header">
+
+                                    <strong>
+                                        ${escapeHTML(candidate.name)}
+                                    </strong>
+
+                                    <span>
+                                        ${count} vote(s)
+                                        -
+                                        ${percentage}%
+                                    </span>
+
+                                </div>
+
+                                <div class="progress">
+
+                                    <div
+                                        class="progress-bar"
+                                        style="width:${percentage}%">
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        `;
+                    }).join("")
+                    :
+                    `<div class="empty">
+                        No candidates.
+                    </div>`
+                }
+
+            </div>
         `;
+    });
 
-        
-        document.getElementById("eventList").appendChild(eventCard);
+    html+=`</div>`;
 
-        
-        document.getElementById("eventName").value = "";
-        document.getElementById("eventDate").value = "";
-        document.getElementById("eventLocation").value = "";
-        document.getElementById("eventDescription").value = "";
-    }
+    document.getElementById("app").innerHTML=html;
+}
 
-    function deleteEvent(button) {
-        
-        button.parentElement.remove();
-    }
+
+/* =====================================================
+   RESET VOTES
+===================================================== */
+
+function resetVotes(){
+
+    if(!confirm(
+        "⚠️ Reset ALL submitted votes?\n\n"+
+        "Student accounts and candidates will remain."
+    ))return;
+
+    localStorage.removeItem("schoolVotes");
+
+    alert("✅ All votes have been reset.");
+
+    adminDashboard();
+}
+
+
+/* =====================================================
+   SECURITY / DISPLAY HELPERS
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+function escapeJS(value){
+
+    return String(value)
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'");
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+showLogin();
+
 </script>
 
 </body>
